@@ -48,6 +48,10 @@ public class ResponseHandler {
         if (serviceName.equals("getServiceNames")) {
             responseData.setServiceNames(data);
         }
+        if (serviceName.equals("getServiceNamesByDynamicSearch")) {
+            responseData.setServiceNamesByDynamicSearch(data);
+            System.out.println("maiii");
+        }
 
         return responseData;
     }

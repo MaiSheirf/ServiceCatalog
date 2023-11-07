@@ -45,4 +45,13 @@ public class ServiceRoutingStore {
     List<Object> getUsers(String user){
         return entityRepo.getUsers(user);
     }
+
+    @SwitchDataSource("DEV11")
+    List<Object> getServiceNamesByDynamicSearch(String serviceName , String uniqueId , String environment,
+                                                String server , String backends , String beOperations ,
+                                                String beProtocol , String users , String channels ,
+                                                String mwProtocol){
+        return entityRepo.getServiceNamesByDynamicSearch(serviceName,uniqueId,environment,server,
+                backends,beOperations,beProtocol,users,channels,mwProtocol);
+    }
 }

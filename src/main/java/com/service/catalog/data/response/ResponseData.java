@@ -13,4 +13,5 @@ public class ResponseData {
     private List<Object> Callers;
     private List<Object> Users;
     private List<Object> ServiceNames;
+    private List<Object> ServiceNamesByDynamicSearch;
 }

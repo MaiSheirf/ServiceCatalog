@@ -94,4 +94,18 @@ public class ServiceRouting implements ServiceList{
         }
         return getUsers;
     }
+
+    @Override
+    public List<Object> getServiceNamesByDynamicSearch(String serviceName, String uniqueId, String environment, String server, String backends, String beOperations, String beProtocol, String users, String channels, String mwProtocol, String databaseName) {
+        List<Object> getServiceNamesByDynamicSearch = new ArrayList<>();
+        switch (databaseName.toUpperCase()) {
+            case "DEV11":
+                getServiceNamesByDynamicSearch = serviceRoutingStore.getServiceNamesByDynamicSearch(serviceName,uniqueId,environment,server,
+                        backends,beOperations,beProtocol,users,channels,mwProtocol);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid database name: " + databaseName);
+        }
+        return getServiceNamesByDynamicSearch;
+    }
 }
