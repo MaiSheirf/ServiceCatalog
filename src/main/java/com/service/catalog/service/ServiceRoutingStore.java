@@ -27,22 +27,22 @@ public class ServiceRoutingStore {
     }
 
     @SwitchDataSource("DEV11")
-    List<Object> getServiceNames(){
-        return entityRepo.getServiceNames();
+    List<Object> getServiceNames(String serviceName){
+        return entityRepo.getServiceNames(serviceName);
     }
 
     @SwitchDataSource("DEV11")
-    List<Object> getCallers(){
-        return entityRepo.getCallers();
+    List<Object> getCallers(String caller){
+        return entityRepo.getCallers(caller);
     }
 
     @SwitchDataSource("DEV11")
-    List<Object> getBackends(){
-        return entityRepo.getBackends();
+    List<Object> getBackends(String backend){
+        return entityRepo.getBackends(backend);
     }
 
     @SwitchDataSource("DEV11")
-    List<Object> getUsers(){
-        return entityRepo.getUsers();
+    List<Object> getUsers(String user){
+        return entityRepo.getUsers(user);
     }
 }

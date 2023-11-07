@@ -21,12 +21,17 @@ public class GetCallersController {
         this.serviceRouter = serviceRouter;
     }
 
-    @GetMapping("/{databaseName}")
+    @GetMapping("/{databaseName}/{caller}")
     public Response getCallers(@PathVariable("databaseName") String databaseName
-
+        ,@PathVariable("caller") String caller
     ) {
+        caller ="%" + caller + "%" ;
 
-        List<Object> getCallers = serviceRouter.getCallers(databaseName);
+        if (caller.equals("NA")){
+            caller = null;
+        }
+
+        List<Object> getCallers = serviceRouter.getCallers(caller ,databaseName);
         return ResponseHandler.handleResponse(getCallers, "getCallers");
     }
 }

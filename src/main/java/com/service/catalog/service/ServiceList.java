@@ -7,11 +7,11 @@ public interface ServiceList {
 
     List<Object> getAllBackends(String serviceName , String databaseName);
 
-    List<Object> getServiceNames(String databaseName);
+    List<Object> getServiceNames(String serviceName ,String databaseName);
 
-    List<Object> getCallers(String databaseName);
+    List<Object> getCallers(String caller , String databaseName);
 
-    List<Object> getBackends(String databaseName);
+    List<Object> getBackends(String backend ,String databaseName);
 
-    List<Object> getUsers(String databaseName);
+    List<Object> getUsers(String user ,String databaseName);
 }

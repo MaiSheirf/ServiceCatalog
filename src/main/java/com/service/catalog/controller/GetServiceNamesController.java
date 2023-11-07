@@ -22,12 +22,18 @@ public class GetServiceNamesController {
         this.serviceRouter = serviceRouter;
     }
 
-    @GetMapping("/{databaseName}")
-    public Response getServiceNames(@PathVariable("databaseName") String databaseName
+    @GetMapping("/{databaseName}/{serviceName}")
+    public Response getServiceNames(@PathVariable("databaseName") String databaseName ,
+                                    @PathVariable("serviceName") String serviceName
 
     ) {
+        serviceName ="%" + serviceName + "%" ;
 
-        List<Object> getServiceNames = serviceRouter.getServiceNames(databaseName);
+        if (serviceName.equals("NA")){
+            serviceName = null;
+        }
+
+        List<Object> getServiceNames = serviceRouter.getServiceNames(serviceName , databaseName);
         return ResponseHandler.handleResponse(getServiceNames, "getServiceNames");
     }
 }

@@ -22,12 +22,17 @@ public class GetBackendsController {
         this.serviceRouter = serviceRouter;
     }
 
-    @GetMapping("/{databaseName}")
+    @GetMapping("/{databaseName}/{backend}")
     public Response getBackends(@PathVariable("databaseName") String databaseName
-
+            ,@PathVariable("backend") String backend
     ) {
+        backend ="%" + backend + "%" ;
 
-        List<Object> getBackends = serviceRouter.getBackends(databaseName);
+        if (backend.equals("NA")){
+            backend = null;
+        }
+
+        List<Object> getBackends = serviceRouter.getBackends(backend ,databaseName);
         return ResponseHandler.handleResponse(getBackends, "getBackends");
     }
 }

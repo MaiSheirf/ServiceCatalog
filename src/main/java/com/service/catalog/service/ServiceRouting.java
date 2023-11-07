@@ -44,11 +44,11 @@ public class ServiceRouting implements ServiceList{
     }
 
     @Override
-    public List<Object> getServiceNames(String databaseName) {
+    public List<Object> getServiceNames(String serviceName ,String databaseName) {
         List<Object> getServiceNames = new ArrayList<>();
         switch (databaseName.toUpperCase()) {
             case "DEV11":
-                getServiceNames = serviceRoutingStore.getServiceNames();
+                getServiceNames = serviceRoutingStore.getServiceNames(serviceName);
                 break;
             default:
                 throw new IllegalArgumentException("Invalid database name: " + databaseName);
@@ -57,11 +57,11 @@ public class ServiceRouting implements ServiceList{
     }
 
     @Override
-    public List<Object> getCallers(String databaseName) {
+    public List<Object> getCallers(String caller ,String databaseName) {
         List<Object> getCallers = new ArrayList<>();
         switch (databaseName.toUpperCase()) {
             case "DEV11":
-                getCallers = serviceRoutingStore.getCallers();
+                getCallers = serviceRoutingStore.getCallers(caller);
                 break;
             default:
                 throw new IllegalArgumentException("Invalid database name: " + databaseName);
@@ -70,11 +70,11 @@ public class ServiceRouting implements ServiceList{
     }
 
     @Override
-    public List<Object> getBackends(String databaseName) {
+    public List<Object> getBackends(String backend ,String databaseName) {
         List<Object> getBackends = new ArrayList<>();
         switch (databaseName.toUpperCase()) {
             case "DEV11":
-                getBackends = serviceRoutingStore.getBackends();
+                getBackends = serviceRoutingStore.getBackends(backend);
                 break;
             default:
                 throw new IllegalArgumentException("Invalid database name: " + databaseName);
@@ -83,11 +83,11 @@ public class ServiceRouting implements ServiceList{
     }
 
     @Override
-    public List<Object> getUsers(String databaseName) {
+    public List<Object> getUsers(String user ,String databaseName) {
         List<Object> getUsers = new ArrayList<>();
         switch (databaseName.toUpperCase()) {
             case "DEV11":
-                getUsers = serviceRoutingStore.getUsers();
+                getUsers = serviceRoutingStore.getUsers(user);
                 break;
             default:
                 throw new IllegalArgumentException("Invalid database name: " + databaseName);

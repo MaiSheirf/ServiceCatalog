@@ -22,15 +22,15 @@ public interface EntityRepo extends JpaRepository<EsbService,Integer> {
             "AND   UPPER(ESB_SERVICES.NAME) LIKE UPPER(?1)" , nativeQuery = true)
     List<Object> getAllBackends(String serviceName);
 
-    @Query(value = "SELECT NAME AS SERVICE_NAME FROM ESB_SERVICES" , nativeQuery = true)
-    List<Object> getServiceNames();
+    @Query(value = "SELECT NAME AS SERVICE_NAME FROM ESB_SERVICES where upper(NAME) like upper(?1)" , nativeQuery = true)
+    List<Object> getServiceNames(String serviceName);
 
-    @Query(value = "SELECT NAME AS CALLERS FROM CHANNEL " , nativeQuery = true)
-    List<Object> getCallers();
+    @Query(value = "SELECT NAME AS CALLERS FROM CHANNEL where upper(NAME) like upper(?1) " , nativeQuery = true)
+    List<Object> getCallers(String caller);
 
-    @Query(value = "SELECT NAME AS BACKENDS FROM BACKEND " , nativeQuery = true)
-    List<Object> getBackends();
+    @Query(value = "SELECT NAME AS BACKENDS FROM BACKEND where upper(NAME) like upper(?1)" , nativeQuery = true)
+    List<Object> getBackends(String backend);
 
-    @Query(value = "SELECT DISTINCT(USERS) FROM CHANNEL_SERVICE " , nativeQuery = true)
-    List<Object> getUsers();
+    @Query(value = "SELECT DISTINCT(USERS) FROM CHANNEL_SERVICE where upper(USERS) like UPPER(?1)" , nativeQuery = true)
+    List<Object> getUsers(String user);
 }

@@ -22,12 +22,17 @@ public class GetUsersController {
         this.serviceRouter = serviceRouter;
     }
 
-    @GetMapping("/{databaseName}")
+    @GetMapping("/{databaseName}/{user}")
     public Response getUsers(@PathVariable("databaseName") String databaseName
-
+            ,@PathVariable("user") String user
     ) {
+        user ="%" + user + "%" ;
 
-        List<Object> getUsers = serviceRouter.getUsers(databaseName);
+        if (user.equals("NA")){
+            user = null;
+        }
+
+        List<Object> getUsers = serviceRouter.getUsers(user ,databaseName);
         return ResponseHandler.handleResponse(getUsers, "getUsers");
     }
 }
