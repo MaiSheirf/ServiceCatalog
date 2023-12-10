@@ -28,9 +28,9 @@ public class GetBackendsController {
     ) {
         backend ="%" + backend + "%" ;
 
-        if (backend.equals("NA")){
-            backend = null;
-        }
+//        if (backend.equals("NA")){
+//            backend = null;
+//        }
 
         List<Object> getBackends = serviceRouter.getBackends(backend ,databaseName);
         return ResponseHandler.handleResponse(getBackends, "getBackends");

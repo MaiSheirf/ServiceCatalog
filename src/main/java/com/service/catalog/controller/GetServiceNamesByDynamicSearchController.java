@@ -37,7 +37,7 @@ public class GetServiceNamesByDynamicSearchController {
                                     @PathVariable("mwProtocol") String mwProtocol
 
     ) {
-        serviceName ="%" + serviceName + "%" ;
+       /*serviceName ="%" + serviceName + "%" ;
         uniqueId = "%" + uniqueId +"%";
         environment = "%" + environment + "%";
         server = "%" + server + "%";
@@ -46,7 +46,7 @@ public class GetServiceNamesByDynamicSearchController {
         beProtocol = "%" + beProtocol + "%";
         users = "%" + users + "%";
         channels = "%" + channels + "%";
-        mwProtocol = "%" + mwProtocol + "%";
+        mwProtocol = "%" + mwProtocol + "%"; */
 
 
 

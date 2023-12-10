@@ -28,9 +28,9 @@ public class GetUsersController {
     ) {
         user ="%" + user + "%" ;
 
-        if (user.equals("NA")){
-            user = null;
-        }
+//        if (user.equals("NA")){
+//            user = null;
+//        }
 
         List<Object> getUsers = serviceRouter.getUsers(user ,databaseName);
         return ResponseHandler.handleResponse(getUsers, "getUsers");

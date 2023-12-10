@@ -61,16 +61,17 @@ public interface EntityRepo extends JpaRepository<EsbService,Integer> {
             "  s.ENVIRONMENT ,\n" +
             "  s.SERVER\n" +
             ") a \n" +
-            "  WHERE ( upper(a.service_name) like upper(?1) OR ?1 IS NULL ) \n" +
-            "    AND ( upper(a.unique_id) like  upper(?2) OR ?2 IS NULL )  \n" +
-            "    AND ( upper(a.environment) like upper(?3) OR ?3 IS NULL ) \n" +
-            "    AND ( upper(a.server) like upper(?4) OR ?4 IS NULL ) \n" +
-            "    AND ( upper(a.backends) like upper(?5) OR ?5 IS NULL ) \n" +
-            "    AND ( upper(a.be_operations) like  upper(?6) OR ?6 IS NULL ) \n" +
-            "    AND ( upper(a.be_protocol) like  upper(?7) OR ?7 IS NULL ) \n" +
-            "    AND ( upper(a.users) like  upper(?8) OR ?8 IS NULL )\n" +
-            "    AND ( upper(a.channels) like  upper(?9) OR ?9 IS NULL )\n" +
-            "    AND ( upper(a.mw_protocol)  like  upper(?10) OR ?10 IS NULL ) " , nativeQuery = true)
+            "  WHERE ( upper(a.service_name) like upper('%'||?1||'%') OR ?1 IS NULL ) \n" +
+           "    AND ( upper(a.unique_id) like  upper('%' ||?2 || '%') OR ?2 IS NULL )  \n" +
+            "    AND ( upper(a.environment) like upper('%'|| ?3 || '%') OR ?3 IS NULL ) \n" +
+            "    AND ( upper(a.server) like upper('%' ||?4 || '%') OR ?4 IS NULL ) \n" +
+            "    AND ( upper(a.backends) like upper('%' || ?5 || '%') OR ?5 IS NULL ) \n" +
+            "    AND ( upper(a.be_operations) like  upper('%' || ?6 || '%') OR ?6 IS NULL ) \n" +
+            "    AND ( upper(a.be_protocol) like  upper('%' || ?7 || '%') OR ?7 IS NULL ) \n" +
+            "    AND ( upper(a.users) like  upper('%' || ?8 || '%') OR ?8 IS NULL )\n" +
+            "    AND ( upper(a.channels) like  upper('%' || ?9 || '%') OR ?9 IS NULL )\n" +
+            "    AND ( upper(a.mw_protocol)  like  upper('%' || ?10 || '%') OR ?10 IS NULL ) "
+             , nativeQuery = true)
     List<Object> getServiceNamesByDynamicSearch(String serviceName , String uniqueId , String environment,
                                                 String server , String backends , String beOperations ,
                                                 String beProtocol , String users , String channels ,

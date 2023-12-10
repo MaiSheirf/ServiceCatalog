@@ -29,9 +29,9 @@ public class GetServiceNamesController {
     ) {
         serviceName ="%" + serviceName + "%" ;
 
-        if (serviceName.equals("NA")){
-            serviceName = null;
-        }
+//        if (serviceName.equals("NA")){
+//            serviceName = null;
+//        }
 
         List<Object> getServiceNames = serviceRouter.getServiceNames(serviceName , databaseName);
         return ResponseHandler.handleResponse(getServiceNames, "getServiceNames");

@@ -27,9 +27,9 @@ public class GetCallersController {
     ) {
         caller ="%" + caller + "%" ;
 
-        if (caller.equals("NA")){
-            caller = null;
-        }
+//        if (caller.equals("NA")){
+//            caller = null;
+//        }
 
         List<Object> getCallers = serviceRouter.getCallers(caller ,databaseName);
         return ResponseHandler.handleResponse(getCallers, "getCallers");
