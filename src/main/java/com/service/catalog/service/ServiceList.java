@@ -19,4 +19,8 @@ public interface ServiceList {
                                                 String server , String backends , String beOperations ,
                                                 String beProtocol , String users , String channels ,
                                                 String mwProtocol , String databaseName);
+
+    List<Object> getPerformanceReport(String fromData, String toDate, String server, String serviceName, String backend,
+                                      String channel, String databaseName);
 }
+

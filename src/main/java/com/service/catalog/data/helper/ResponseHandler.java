@@ -52,6 +52,10 @@ public class ResponseHandler {
             responseData.setServiceNamesByDynamicSearch(data);
             System.out.println("maiii");
         }
+        if (serviceName.equals("getPerformanceReport")) {
+            responseData.setServiceNamesByDynamicSearch(data);
+            System.out.println("maiii");
+        }
 
         return responseData;
     }

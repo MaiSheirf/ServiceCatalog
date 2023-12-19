@@ -54,4 +54,13 @@ public class ServiceRoutingStore {
         return entityRepo.getServiceNamesByDynamicSearch(serviceName,uniqueId,environment,server,
                 backends,beOperations,beProtocol,users,channels,mwProtocol);
     }
+
+    @SwitchDataSource("DEV11")
+    public List<Object> getPerformanceReport(String fromData , String toDate , String server ,
+                                             String serviceName , String backend , String channel
+                                             ){
+        return entityRepo.getPerformanceReport(fromData , toDate ,  server ,
+                 serviceName ,  backend ,  channel
+                );
+    }
 }

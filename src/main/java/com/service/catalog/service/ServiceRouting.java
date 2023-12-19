@@ -108,4 +108,21 @@ public class ServiceRouting implements ServiceList{
         }
         return getServiceNamesByDynamicSearch;
     }
+
+    @Override
+    public List<Object> getPerformanceReport(String fromData, String toDate, String server, String serviceName, String backend,
+                                             String channel , String databaseName) {
+        List<Object> getPerformanceReport = new ArrayList<>();
+        switch (databaseName.toUpperCase()) {
+            case "DEV11":
+                getPerformanceReport = serviceRoutingStore.getPerformanceReport(fromData,  toDate,  server, serviceName, backend,
+                        channel);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid database name: " + databaseName);
+        }
+        return getPerformanceReport;
+    }
+
+
 }

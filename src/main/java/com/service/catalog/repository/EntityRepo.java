@@ -76,4 +76,82 @@ public interface EntityRepo extends JpaRepository<EsbService,Integer> {
                                                 String server , String backends , String beOperations ,
                                                 String beProtocol , String users , String channels ,
                                                 String mwProtocol);
+
+    @Query(value = "SELECT\n" +
+            "    MIN(data.journey_in_milli_seconds) min_journey_time,\n" +
+            "    MAX(data.journey_in_milli_seconds) max_journey_time,\n" +
+            "    round(AVG(data.journey_in_milli_seconds), 3) avg_journey_time,\n" +
+            "    data.saop_action,\n" +
+            "    (case ?4 when  null then data.service_name else ?4 end) service_name,\n" +
+            "    data.channels,\n" +
+            "    data.backends\n" +
+            "FROM\n" +
+            "    ( SELECT\n" +
+            "    to_timestamp(t.start_time, 'YYYY:MM:DD HH24:MI:SS.FF') start_ime,\n" +
+            "    to_timestamp(t.finish_time, 'YYYY:MM:DD HH24:MI:SS.FF') finish_time,\n" +
+            "    t.ESB_EXECUTION_TIME,\n" +
+            "    EXTRACT(MINUTE FROM(t.ESB_EXECUTION_TIME)) AS journey_minute,\n" +
+            "    EXTRACT(SECOND FROM(t.ESB_EXECUTION_TIME)) AS journey_second,\n" +
+            "    ( EXTRACT(MINUTE FROM(t.ESB_EXECUTION_TIME)) * 60 ) + ( EXTRACT(SECOND FROM(t.ESB_EXECUTION_TIME)) ) journey_in_seconds,\n" +
+            "   ( ( EXTRACT(MINUTE FROM(t.ESB_EXECUTION_TIME)) * 60 ) + ( EXTRACT(SECOND FROM(t.ESB_EXECUTION_TIME)) ) ) * 1000 journey_in_milli_seconds  ,\n" +
+            "    t.saop_action,\n" +
+            "    (\n" +
+            "         \n" +
+            "        SELECT\n" +
+            "         -- max( nvl( tt.name,'---'))\n" +
+            "          LISTAGG(DISTINCT tt.name, ',') WITHIN GROUP (ORDER BY tt.name)\n" +
+            "        FROM\n" +
+            "            esb_services tt\n" +
+            "        WHERE\n" +
+            "            tt.unique_id = t.saop_action\n" +
+            "        and   upper(t.JOURNEY_SERVICE_NAMES) LIKE upper('%'||tt.name||'%')\n" +
+            "            and tt.environment='production'\n" +
+            "    \n" +
+            "    ) AS service_name,\n" +
+            "\n" +
+            "            ( SELECT\n" +
+            "    listagg(DISTINCT c.name, ',') within GROUP (ORDER BY c.name) AS channels from \n" +
+            "            esb_services s , channel_service cs , channel c \n" +
+            "            where s.id = cs.service_id\n" +
+            "  and  cs.channel_id = c.id\n" +
+            "  and  s.unique_id = t.SAOP_ACTION\n" +
+            "            )channels,\n" +
+            "\n" +
+            "             ( select   LISTAGG( DISTINCT b.name, ',' ) WITHIN GROUP (\n" +
+            "ORDER BY\n" +
+            "    b.name\n" +
+            ") AS backends\n" +
+            "FROM\n" +
+            "    esb_services      s,\n" +
+            "    service_backend   sb,\n" +
+            "    backend           b\n" +
+            "WHERE\n" +
+            "    s.id = sb.service_id\n" +
+            "    AND sb.backend_id = b.id\n" +
+            "        AND s.unique_id = t.saop_action\n" +
+            "            ) backends\n" +
+            "FROM\n" +
+            "    esb_service_performsnce t  --  esb_total_execution_time t\n" +
+            "WHERE\n" +
+            "    ( ( to_date(substr(t.start_time, 1, 10), 'YYYY-MM-DD') >= TO_DATE(?1, 'YYYY-MM-DD')\n" +
+            "        AND to_date(substr(t.start_time, 1, 10), 'YYYY-MM-DD') <= TO_DATE(?1, 'YYYY-MM-DD') )\n" +
+            "      OR ( ?1 IS NULL\n" +
+            "           AND ?2 IS NULL ) )\n" +
+            "           and (t.ENV_SERVER=?3 or ?3 is null) --10 or 11\n" +
+            " ) data\n" +
+            "WHERE\n" +
+            "    ( upper(service_name) LIKE upper('%'|| ?4 ||'%')\n" +
+            "      OR ?4 IS NULL )\n" +
+            "    AND ( upper(backends) LIKE upper('%'|| ?5 ||'%')\n" +
+            "          OR ?5 IS NULL )\n" +
+            "        AND ( upper(channels) LIKE upper('%'|| ?6 ||'%')\n" +
+            "              OR ?6 IS NULL )\n" +
+            "GROUP BY\n" +
+            "    data.saop_action,\n" +
+            "    data.service_name,\n" +
+            "    data.channels,\n" +
+            "    data.backends\n" +
+            "ORDER by data.service_name" , nativeQuery = true)
+    List<Object> getPerformanceReport(String fromData , String toDate , String server ,
+                                      String serviceName , String backend , String channel);
 }
