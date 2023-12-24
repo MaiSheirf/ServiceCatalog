@@ -11,7 +11,7 @@
 	<groupId>com.service.catalog</groupId>
 	<artifactId>serviceCatalog</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>serviceCatalog</name>
 	<description> Spring Boot for service catalog</description>
 	<properties>
