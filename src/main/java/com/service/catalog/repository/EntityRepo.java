@@ -83,7 +83,7 @@ public interface EntityRepo extends JpaRepository<EsbService,Integer> {
             "    round(AVG(data.journey_in_milli_seconds), 3) avg_journey_time,\n" +
             "    data.saop_action,\n" +
             "  --  (case ?4 when  null then data.service_name else ?4 end) service_name,\n" +
-
+             "data.service_name,\n"+
             "    data.channels,\n" +
             "    data.backends\n" +
             "FROM\n" +
