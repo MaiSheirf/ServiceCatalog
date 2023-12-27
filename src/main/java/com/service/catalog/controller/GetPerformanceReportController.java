@@ -4,6 +4,8 @@ import com.service.catalog.data.helper.ResponseHandler;
 import com.service.catalog.data.response.Response;
 import com.service.catalog.service.ServiceRouting;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +18,7 @@ import java.util.List;
 @RequestMapping("/performancereport")
 public class GetPerformanceReportController {
 
+    private final Logger logger = LoggerFactory.getLogger(getClass());
     private final ServiceRouting serviceRouter;
 
     public GetPerformanceReportController(ServiceRouting serviceRouter) {
@@ -32,6 +35,10 @@ public class GetPerformanceReportController {
              @PathVariable("backend") String backend ,
              @PathVariable("channel") String channel
             ) {
+
+        logger.trace("Controller will serve func [{}] through DB [{}] with variables sent [{}],[{}],[{}],[{}],[{}],[{}]",
+                "PerformanceReport",databaseName,fromData,toDate,server,
+                serviceName , backend, channel);
 
         if (fromData.equals("NA")){
             fromData = null;

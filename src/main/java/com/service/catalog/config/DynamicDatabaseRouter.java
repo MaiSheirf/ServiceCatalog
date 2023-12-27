@@ -60,6 +60,7 @@ public class DynamicDatabaseRouter {
             dataSource.setUrl(environment.getProperty(PROPERTY_PREFIX + dbName + ".url"));
             dataSource.setUsername(environment.getProperty(PROPERTY_PREFIX + dbName + ".username"));
             dataSource.setPassword(environment.getProperty(PROPERTY_PREFIX + dbName + ".password"));
+            dataSource.setDriverClassName(environment.getProperty(PROPERTY_PREFIX + dbName + ".driver-class-name"));
             targetDataSourceMap.put(dbName,dataSource);
         }
         targetDataSourceMap.put("default",targetDataSourceMap.get(databaseNames.get(0)));
